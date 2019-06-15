@@ -693,7 +693,8 @@ sub section_url_escape  ($self, @args) { $self->general_url_escape(@args) }
 sub pagepath_url_escape ($self, @args) { $self->general_url_escape(@args) }
 sub manpage_url_escape  ($self, @args) { $self->general_url_escape(@args) }
 
-sub general_url_escape ($self, str $string) {
+# $string may be str or Pod::Simple::LinkSection
+sub general_url_escape ($self, $string) {
  
   $string =~ s/([^\x00-\xFF])/join '', map sprintf('%%%02X',$_), unpack 'C*', $1/eg;
      # express Unicode things as urlencode(utf(orig)).
@@ -761,7 +762,8 @@ sub batch_mode_rectify_path ($self, $pathbits) {
   return;
 }
 
-sub resolve_man_page_link ($self, str $to, $frag) {
+# $to may be str or Pod::Simple::LinkSection
+sub resolve_man_page_link ($self, $to, $frag) {
   my ($page, $section) = $to =~ /^([^(]+)(?:[(](\d+)[)])?$/;
 
   return undef unless defined $page and length $page;

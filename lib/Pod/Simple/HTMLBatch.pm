@@ -1110,7 +1110,7 @@ Example:
 =item $batchconv = Pod::Simple::HTMLBatch->new;
 
 This creates a new batch converter.  The method doesn't take parameters.
-To change the converter's attributes, use the L<"/ACCESSOR METHODS">
+To change the converter's attributes, use the L</ACCESSOR METHODS>
 below.
 
 =item $batchconv->batch_convert( I<indirs>, I<outdir> );
