@@ -10,7 +10,7 @@ use vars qw(
 );
 @ISA = ('Pod::Simple::PullParser');
 use cperl;
-our $VERSION = '4.39c'; # modernized
+our $VERSION = '4.40c'; # modernized
 $VERSION =~ s/c$//;
 BEGIN {
   if(defined &DEBUG) { } # no-op
