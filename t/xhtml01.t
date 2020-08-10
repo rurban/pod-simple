@@ -52,8 +52,6 @@ initialize($parser, $results);
 $parser->parse_string_document( "=head4 Zort & Zog!" );
 is($results, qq{<h4 id="Zort-Zog">Zort &amp; Zog!</h4>\n\n}, "head4 level output");
 
-use Sub::Util 1.55;
-
 sub x {
   my $code = $_[1];
   Pod::Simple::XHTML->_out(
@@ -62,7 +60,11 @@ sub x {
 ) }
 
 BEGIN {
-  Sub::Util::set_prototype('$;&', \&x);
+  if ($^V !~ /c$/) {
+    require Sub::Util;
+    import Sub::Util 1.55;
+    Sub::Util::set_prototype('$;&', \&x);
+  }
 }
 
 like(

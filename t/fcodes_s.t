@@ -19,11 +19,13 @@ use Pod::Simple::XMLOutStream;
 print "# Pod::Simple version $Pod::Simple::VERSION\n";
 my $x = 'Pod::Simple::XMLOutStream';
 
-use Sub::Util 1.55;
-
 sub e { $x->_duo(@_) }
 BEGIN {
-  Sub::Util::set_prototype('$$', \&e);
+  if ($^V !~ /c$/) {
+    require Sub::Util;
+    import Sub::Util 1.55;
+    Sub::Util::set_prototype('$$', \&e);
+  }
 }
 
 $Pod::Simple::XMLOutStream::ATTR_PAD   = ' ';
@@ -236,7 +238,9 @@ sub x {
 }
 
 BEGIN {
+  if ($^V !~ /c$/) {
     Sub::Util::set_prototype('$', \&x);
+  }
 }
 
 ok(

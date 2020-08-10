@@ -15,7 +15,6 @@ BEGIN { plan tests => 7 };
 #use Pod::Simple::Debug (10);
 
 use Pod::Simple::HTML;
-use Sub::Util 1.55;
 
 sub x { Pod::Simple::HTML->_out(
   #sub{  $_[0]->bare_output(1)  },
@@ -23,7 +22,11 @@ sub x { Pod::Simple::HTML->_out(
 ) }
 
 BEGIN {
-  Sub::Util::set_prototype('$', \&x);
+  if ($^V !~ /c$/) {
+    require Sub::Util;
+    import Sub::Util 1.55;
+    Sub::Util::set_prototype('$', \&x);
+  }
 }
 
 # make sure empty file => empty output

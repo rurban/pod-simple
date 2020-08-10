@@ -15,7 +15,6 @@ BEGIN { plan tests => 14 };
 #use Pod::Simple::Debug (10);
 
 use Pod::Simple::HTML;
-use Sub::Util 1.55;
 
 sub x {
   my $code = $_[1];
@@ -25,7 +24,11 @@ sub x {
 ) }
 
 BEGIN {
-  Sub::Util::set_prototype('$;&', \&x);
+  if ($^V !~ /c$/) {
+    require Sub::Util;
+    import Sub::Util 1.55;
+    Sub::Util::set_prototype('$;&', \&x);
+  }
 }
 
 ok( x(
